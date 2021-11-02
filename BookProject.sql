@@ -39,11 +39,16 @@ Position INT,
 CreatedAt DATETIMEOFFSET default SYSUTCDATETIME()
 )
 
+INSERT INTO Category VALUES('Sci-Fi','Category desc',null,1,null,GETDATE());
+INSERT INTO Category VALUES('Drama','Category desc',null,1,null,GETDATE());
+INSERT INTO Category VALUES('Horror','Category desc',null,1,null,GETDATE());
+SELECT * FROM Category;
 
 CREATE TABLE Book(
 Id INT IDENTITY(1,1) PRIMARY KEY,
 CategoryId INT NOT NULL FOREIGN KEY REFERENCES Category(Id),
 Title VARCHAR(255) NOT NULL,
+Author VARCHAR(50) NOT NULL,
 ISBN VARCHAR(11),
 [Year] SMALLINT,
 Price SMALLMONEY,
@@ -52,6 +57,12 @@ Position INT,
 CreatedAt DATETIMEOFFSET default SYSUTCDATETIME()
 )
 
+INSERT INTO Book VALUES(1,'Artemis Fowl','Eon','asd123',2007,400,1,null,GETDATE() );
+INSERT INTO Book VALUES(1,'Artemis Fowl 2','Eon','asd123',2007,400,1,null,GETDATE() );
+INSERT INTO Book VALUES(2,'Shoe Dog','Eon','asd123',2007,400,1,null,GETDATE() );
+INSERT INTO Book VALUES(3,'Goosebumps','Eon','asd123',2007,400,1,null,GETDATE() );
+INSERT INTO Book VALUES(1,'Harry Potter','Eon','asd123',2007,400,1,null,GETDATE() );
+SELECT * FROM Book;
 
 CREATE TABLE Coupon(
 Id INT IDENTITY(1,1) PRIMARY KEY,
