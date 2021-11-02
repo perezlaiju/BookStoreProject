@@ -24,6 +24,10 @@ namespace BookStoreApi
             builder.EntitySet<Book>("Books");
             builder.EntitySet<Category>("Categories");
             builder.EntitySet<OrderItem>("OrderItems");
+            builder.EntitySet<Coupon>("Coupons");
+            builder.EntitySet<OrderCoupon>("OrderCoupons");
+            builder.EntitySet<Order>("Orders");
+            builder.EntitySet<User>("Users");
             config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
         }
     }

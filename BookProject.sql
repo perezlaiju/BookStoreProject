@@ -71,8 +71,8 @@ CREATE TABLE WishList(
 	CONSTRAINT  pkWishList PRIMARY KEY (UserId, BookId)
 	);
 
---Order Related Tables Order, OrderItem, OrderCoupon
 
+--Order Related Tables Order, OrderItem, OrderCoupon
 
 CREATE TABLE [Order](
 	Id INT IDENTITY(1,1) PRIMARY KEY,
@@ -82,7 +82,6 @@ CREATE TABLE [Order](
 	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
 	)
 
-
 CREATE TABLE OrderItem (
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	OrderId INT NOT NULL FOREIGN KEY REFERENCES [Order](Id),
@@ -90,7 +89,6 @@ CREATE TABLE OrderItem (
 	Quantity SMALLINT DEFAULT 1,
 	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
 	)
-
 
 CREATE TABLE OrderCoupon (
 	Id INT IDENTITY(1,1) PRIMARY KEY,
@@ -117,7 +115,7 @@ CREATE FUNCTION calcOrderTotalDiscount(@order_id INT)
 	BEGIN
 		DECLARE @total_discount SMALLMONEY
 		SELECT @total_discount = C.DiscountPercentage * dbo.calcOrderTotalValue(@order_id) FROM [Order] AS O , OrderCoupon AS OC ,Coupon AS C WHERE OC.OrderId = @order_id AND O.Id = @order_id AND OC.CouponId = C.Id
-		RETURN 0
+		RETURN @total_discount
 	END
 GO
 
@@ -128,6 +126,7 @@ ALTER TABLE [Order]
 GO
 
 --Insert Commands
+
 --INSERT INTO Category VALUES('Name','Desc',image,status,position,GETDATE());
 INSERT INTO Category VALUES('Sci-Fi','Category desc',null,1,null,GETDATE());
 INSERT INTO Category VALUES('Drama','Category desc',null,1,null,GETDATE());
@@ -141,3 +140,27 @@ INSERT INTO Book VALUES(2,'Shoe Dog','Eon','asd123',2007,400,1,null,GETDATE() );
 INSERT INTO Book VALUES(3,'Goosebumps','Eon','asd123',2007,400,1,null,GETDATE() );
 INSERT INTO Book VALUES(1,'Harry Potter','Eon','asd123',2007,400,1,null,GETDATE() );
 SELECT * FROM Book;
+
+--INSERT INTO [User] VALUES ('username','userpassword','Role',status,getdate(),lastlogin)
+INSERT INTO [User] VALUES ('admin','admin','A',1,getdate(),null)
+INSERT INTO [User] VALUES ('user','user','C',1,getdate(),null)
+SELECT * FROM [User];
+
+--INSERT INTO Coupon VALUES ('code',percentage,value,minOrder,ClubbableBit,StatusBit,getdate());
+INSERT INTO Coupon VALUES ('FLAT50',0.5,NULL,NULL,1,1,getdate());
+
+--INSERT INTO WishList VALUES(UID,BID);
+INSERT INTO WishList VALUES(1,1);
+
+--INSERT INTO [Order] VALUES (UID,'Addr',StatusChar,getdate());
+INSERT INTO [Order] VALUES (2,'Order Addr','P',getdate());
+SELECT * FROM [Order];
+
+--INSERT INTO OrderItem VALUES (OID,BID,Qty,getdate());
+INSERT INTO OrderItem VALUES (1,1,10,getdate());
+INSERT INTO OrderItem VALUES (1,3,3,getdate());
+SELECT * FROM OrderItem;
+
+--INSERT INTO OrderCoupon VALUES(OID,COUPONID,StatusChar,getdate());
+INSERT INTO OrderCoupon VALUES(1,1,'V',getdate());
+SELECT * FROM OrderCoupon;
