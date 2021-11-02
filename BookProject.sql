@@ -4,6 +4,7 @@ GO
 
 USE BookStoreDB
 
+DROP TABLE IF EXISTS WishList
 DROP TABLE IF EXISTS OrderCoupon
 DROP TABLE IF EXISTS OrderItem
 DROP TABLE IF EXISTS [Order]
@@ -19,119 +20,124 @@ GO
 
 
 CREATE TABLE [User](
-Id INT IDENTITY(1,1) PRIMARY KEY,
-Username VARCHAR(30) UNIQUE NOT NULL,
-[Password] VARCHAR(255) NOT NULL,
-[Role] CHAR DEFAULT 'C' NOT NULL,
-[STATUS] BIT DEFAULT 0 NOT NULL,
-CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
-LastLoginAt DATETIMEOFFSET
-)
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	Username VARCHAR(30) UNIQUE NOT NULL,
+	[Password] VARCHAR(255) NOT NULL,
+	[Role] CHAR DEFAULT 'C' NOT NULL,
+	[STATUS] BIT DEFAULT 0 NOT NULL,
+	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
+	LastLoginAt DATETIMEOFFSET
+	)
 
 
 CREATE TABLE Category(
-Id INT IDENTITY(1,1) PRIMARY KEY,
-[Name] VARCHAR(255) NOT NULL,
-[Description] NTEXT,
-[Image] IMAGE,
-[STATUS] BIT DEFAULT 0 NOT NULL,
-Position INT,
-CreatedAt DATETIMEOFFSET default SYSUTCDATETIME()
-)
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	[Name] VARCHAR(255) NOT NULL,
+	[Description] NTEXT,
+	[Image] IMAGE,
+	[STATUS] BIT DEFAULT 0 NOT NULL,
+	Position INT,
+	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME()
+	)
 
+CREATE TABLE Book(
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	CategoryId INT NOT NULL FOREIGN KEY REFERENCES Category(Id),
+	Title VARCHAR(255) NOT NULL,
+	Author VARCHAR(50) NOT NULL,
+	ISBN VARCHAR(11),
+	[Year] SMALLINT,
+	Price SMALLMONEY,
+	[STATUS] BIT DEFAULT 0 NOT NULL,
+	Position INT,
+	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME()
+	)
+
+CREATE TABLE Coupon(
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	Code VARCHAR(255) NOT NULL,
+	DiscountPercentage FLOAT DEFAULT 0,
+	DiscountValue FLOAT DEFAULT 0,
+	MinOrderValue FLOAT DEFAULT 0,
+	IsClubbable BIT DEFAULT 0,
+	[STATUS] BIT DEFAULT 0 NOT NULL,
+	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME()
+	)
+GO
+
+CREATE TABLE WishList(
+	UserId INT FOREIGN KEY REFERENCES [User],
+	Bookid INT FOREIGN KEY REFERENCES Book,
+	CONSTRAINT  pkWishList PRIMARY KEY (UserId, BookId)
+	);
+
+--Order Related Tables Order, OrderItem, OrderCoupon
+
+
+CREATE TABLE [Order](
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	UserId INT NOT NULL FOREIGN KEY REFERENCES [User](Id),
+	DeliveryAddress NTEXT NOT NULL,
+	[STATUS] CHAR DEFAULT 'P' NOT NULL,
+	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
+	)
+
+
+CREATE TABLE OrderItem (
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	OrderId INT NOT NULL FOREIGN KEY REFERENCES [Order](Id),
+	BookId INT NOT NULL FOREIGN KEY REFERENCES Book(Id),
+	Quantity SMALLINT DEFAULT 1,
+	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
+	)
+
+
+CREATE TABLE OrderCoupon (
+	Id INT IDENTITY(1,1) PRIMARY KEY,
+	OrderId INT NOT NULL FOREIGN KEY REFERENCES [Order](Id),
+	CouponId INT NOT NULL FOREIGN KEY REFERENCES Coupon(Id),
+	[STATUS] CHAR DEFAULT 'V' NOT NULL,
+	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
+	)
+GO
+
+CREATE FUNCTION calcOrderTotalValue(@order_id INT)
+	RETURNS SMALLMONEY
+	AS
+	BEGIN
+		DECLARE @total_value SMALLMONEY
+		SELECT @total_value = SUM(OI.Quantity * B.Price) FROM OrderItem AS OI, Book AS B WHERE OI.OrderId = @order_id AND OI.BookId = B.Id
+		RETURN @total_value
+	END
+GO
+
+CREATE FUNCTION calcOrderTotalDiscount(@order_id INT)
+	RETURNS SMALLMONEY
+	AS
+	BEGIN
+		DECLARE @total_discount SMALLMONEY
+		SELECT @total_discount = C.DiscountPercentage * dbo.calcOrderTotalValue(@order_id) FROM [Order] AS O , OrderCoupon AS OC ,Coupon AS C WHERE OC.OrderId = @order_id AND O.Id = @order_id AND OC.CouponId = C.Id
+		RETURN 0
+	END
+GO
+
+ALTER TABLE [Order]
+	ADD TotalValue AS dbo.calcOrderTotalValue(Id),
+	TotalDiscount AS dbo.calcOrderTotalDiscount(Id),
+	NetPrice AS dbo.calcOrderTotalValue(Id) - dbo.calcOrderTotalDiscount(Id);
+GO
+
+--Insert Commands
+--INSERT INTO Category VALUES('Name','Desc',image,status,position,GETDATE());
 INSERT INTO Category VALUES('Sci-Fi','Category desc',null,1,null,GETDATE());
 INSERT INTO Category VALUES('Drama','Category desc',null,1,null,GETDATE());
 INSERT INTO Category VALUES('Horror','Category desc',null,1,null,GETDATE());
 SELECT * FROM Category;
 
-CREATE TABLE Book(
-Id INT IDENTITY(1,1) PRIMARY KEY,
-CategoryId INT NOT NULL FOREIGN KEY REFERENCES Category(Id),
-Title VARCHAR(255) NOT NULL,
-Author VARCHAR(50) NOT NULL,
-ISBN VARCHAR(11),
-[Year] SMALLINT,
-Price SMALLMONEY,
-[STATUS] BIT DEFAULT 0 NOT NULL,
-Position INT,
-CreatedAt DATETIMEOFFSET default SYSUTCDATETIME()
-)
-
+--INSERT INTO Book VALUES(CategoryID,titkle,'Author','ISBN',Year,PRice,Status,osition,GETDATE() );
 INSERT INTO Book VALUES(1,'Artemis Fowl','Eon','asd123',2007,400,1,null,GETDATE() );
 INSERT INTO Book VALUES(1,'Artemis Fowl 2','Eon','asd123',2007,400,1,null,GETDATE() );
 INSERT INTO Book VALUES(2,'Shoe Dog','Eon','asd123',2007,400,1,null,GETDATE() );
 INSERT INTO Book VALUES(3,'Goosebumps','Eon','asd123',2007,400,1,null,GETDATE() );
 INSERT INTO Book VALUES(1,'Harry Potter','Eon','asd123',2007,400,1,null,GETDATE() );
 SELECT * FROM Book;
-
-CREATE TABLE Coupon(
-Id INT IDENTITY(1,1) PRIMARY KEY,
-Code VARCHAR(255) NOT NULL,
-DiscountPercentage FLOAT DEFAULT 0,
-DiscountValue FLOAT DEFAULT 0,
-MinOrderValue FLOAT DEFAULT 0,
-IsClubbable BIT DEFAULT 0,
-[STATUS] BIT DEFAULT 0 NOT NULL,
-CreatedAt DATETIMEOFFSET default SYSUTCDATETIME()
-)
-GO
-
---Order Related Tables Order, OrderItem, OrderCoupon
-
-
-CREATE TABLE [Order](
-Id INT IDENTITY(1,1) PRIMARY KEY,
-UserId INT NOT NULL FOREIGN KEY REFERENCES [User](Id),
-DeliveryAddress NTEXT NOT NULL,
-[STATUS] CHAR DEFAULT 'P' NOT NULL,
-CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
-)
-
-
-CREATE TABLE OrderItem (
-Id INT IDENTITY(1,1) PRIMARY KEY,
-OrderId INT NOT NULL FOREIGN KEY REFERENCES [Order](Id),
-BookId INT NOT NULL FOREIGN KEY REFERENCES Book(Id),
-Quantity SMALLINT DEFAULT 1,
-CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
-)
-
-
-CREATE TABLE OrderCoupon (
-Id INT IDENTITY(1,1) PRIMARY KEY,
-OrderId INT NOT NULL FOREIGN KEY REFERENCES [Order](Id),
-CouponId INT NOT NULL FOREIGN KEY REFERENCES Coupon(Id),
-[STATUS] CHAR DEFAULT 'V' NOT NULL,
-CreatedAt DATETIMEOFFSET default SYSUTCDATETIME(),
-)
-GO
-
-CREATE FUNCTION calcOrderTotalValue(@order_id INT)
-RETURNS SMALLMONEY
-AS
-BEGIN
-    DECLARE @total_value SMALLMONEY
-    SELECT @total_value = SUM(OI.Quantity * B.Price) FROM OrderItem AS OI, Book AS B WHERE OI.OrderId = @order_id AND OI.BookId = B.Id
-    RETURN @total_value
-END
-GO
-
-CREATE FUNCTION calcOrderTotalDiscount(@order_id INT)
-RETURNS SMALLMONEY
-AS
-BEGIN
-    DECLARE @total_discount SMALLMONEY
-    --To be completed
-    RETURN 0
-END
-GO
-
-ALTER TABLE [Order]
-ADD TotalValue AS dbo.calcOrderTotalValue(Id),
-TotalDiscount AS dbo.calcOrderTotalDiscount(Id),
-NetPrice AS dbo.calcOrderTotalValue(Id) - dbo.calcOrderTotalDiscount(Id);
-
-
-
-
-
