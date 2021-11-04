@@ -34,7 +34,7 @@ CREATE TABLE Category(
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	[Name] VARCHAR(255) NOT NULL,
 	[Description] NTEXT,
-	[Image] IMAGE,
+	ImageUrl VARCHAR(1024),
 	[Status] Char DEFAULT 'I' NOT NULL,
 	Position INT,
 	CreatedAt DATETIMEOFFSET default SYSUTCDATETIME()
@@ -46,6 +46,7 @@ CREATE TABLE Book(
 	Title VARCHAR(255) NOT NULL,
 	Author VARCHAR(50) NOT NULL,
 	ISBN VARCHAR(11),
+	ImageUrl VARCHAR(1024),
 	[Year] SMALLINT,
 	Price SMALLMONEY NOT NULL,
 	[Status] Char DEFAULT 'I' NOT NULL,
@@ -158,7 +159,12 @@ ALTER TABLE [Order]
 	NetPrice AS dbo.calcOrderTotalValue(Id) - dbo.calcOrderTotalDiscount(Id);
 GO
 
---CART And WishLIst Related Tables
+--WishLIst Related Tables
+CREATE TABLE WishList(
+	UserId INT FOREIGN KEY REFERENCES [User],
+	Bookid INT FOREIGN KEY REFERENCES Book,
+	CONSTRAINT  pkWishList PRIMARY KEY (UserId, BookId)
+	);
 
 --Insert Commands
 
