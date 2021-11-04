@@ -24,6 +24,7 @@ namespace BookStoreApi.Controllers
     builder.EntitySet<Book>("Books");
     builder.EntitySet<Category>("Categories"); 
     builder.EntitySet<OrderItem>("OrderItems"); 
+    builder.EntitySet<User>("Users"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
     public class BooksController : ODataController
@@ -160,6 +161,13 @@ namespace BookStoreApi.Controllers
         public IQueryable<OrderItem> GetOrderItems([FromODataUri] int key)
         {
             return db.Books.Where(m => m.Id == key).SelectMany(m => m.OrderItems);
+        }
+
+        // GET: odata/Books(5)/Users
+        [EnableQuery]
+        public IQueryable<User> GetUsers([FromODataUri] int key)
+        {
+            return db.Books.Where(m => m.Id == key).SelectMany(m => m.Users);
         }
 
         protected override void Dispose(bool disposing)

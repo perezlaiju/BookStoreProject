@@ -18,17 +18,20 @@ namespace BookStoreApi.Models
         public User()
         {
             this.Orders = new HashSet<Order>();
+            this.Books = new HashSet<Book>();
         }
     
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Role { get; set; }
-        public bool STATUS { get; set; }
+        public string Status { get; set; }
         public Nullable<System.DateTimeOffset> CreatedAt { get; set; }
         public Nullable<System.DateTimeOffset> LastLoginAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

@@ -1,91 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="BookStoreDbModelStoreContainer" CdmEntityContainer="BookStoreDbEntities">
-    <EntitySetMapping Name="Admins">
-      <EntityTypeMapping TypeName="BookStoreDbModel.Admin">
-        <MappingFragment StoreEntitySet="Admins">
-          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
-          <ScalarProperty Name="AName" ColumnName="AName" />
-          <ScalarProperty Name="APassword" ColumnName="APassword" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+  <EntityContainerMapping StorageEntityContainer="BookStoreDBModelStoreContainer" CdmEntityContainer="BookStoreDBEntities">
     <EntitySetMapping Name="Books">
-      <EntityTypeMapping TypeName="BookStoreDbModel.Book">
-        <MappingFragment StoreEntitySet="Books">
-          <ScalarProperty Name="BookId" ColumnName="BookId" />
+      <EntityTypeMapping TypeName="BookStoreDBModel.Book">
+        <MappingFragment StoreEntitySet="Book">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Author" ColumnName="Author" />
           <ScalarProperty Name="ISBN" ColumnName="ISBN" />
-          <ScalarProperty Name="BYear" ColumnName="BYear" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
           <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="BDescription" ColumnName="BDescription" />
-          <ScalarProperty Name="BPosition" ColumnName="BPosition" />
-          <ScalarProperty Name="BStatus" ColumnName="BStatus" />
-          <ScalarProperty Name="BImage" ColumnName="BImage" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="BookStoreDbModel.Category">
+      <EntityTypeMapping TypeName="BookStoreDBModel.Category">
         <MappingFragment StoreEntitySet="Category">
-          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-          <ScalarProperty Name="CDescription" ColumnName="CDescription" />
-          <ScalarProperty Name="CImage" ColumnName="CImage" />
-          <ScalarProperty Name="CStatus" ColumnName="CStatus" />
-          <ScalarProperty Name="CPosition" ColumnName="CPosition" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
           <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Coupons">
-      <EntityTypeMapping TypeName="BookStoreDbModel.Coupon">
-        <MappingFragment StoreEntitySet="Coupons">
-          <ScalarProperty Name="CouponId" ColumnName="CouponId" />
-          <ScalarProperty Name="CouponName" ColumnName="CouponName" />
-          <ScalarProperty Name="CouponDiscount" ColumnName="CouponDiscount" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="OrderItems">
-      <EntityTypeMapping TypeName="BookStoreDbModel.OrderItem">
-        <MappingFragment StoreEntitySet="OrderItems">
-          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-          <ScalarProperty Name="BookId" ColumnName="BookId" />
-          <ScalarProperty Name="Qty" ColumnName="Qty" />
+      <EntityTypeMapping TypeName="BookStoreDBModel.Coupon">
+        <MappingFragment StoreEntitySet="Coupon">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+          <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+          <ScalarProperty Name="MinOrderValue" ColumnName="MinOrderValue" />
+          <ScalarProperty Name="IsClubbable" ColumnName="IsClubbable" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="BookStoreDbModel.Order">
-        <MappingFragment StoreEntitySet="Orders">
-          <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+      <EntityTypeMapping TypeName="BookStoreDBModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="TotalValue" ColumnName="TotalValue" />
+          <ScalarProperty Name="TotalDiscount" ColumnName="TotalDiscount" />
+          <ScalarProperty Name="NetPrice" ColumnName="NetPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderCoupons">
+      <EntityTypeMapping TypeName="BookStoreDBModel.OrderCoupon">
+        <MappingFragment StoreEntitySet="OrderCoupon">
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-          <ScalarProperty Name="UsrId" ColumnName="UsrId" />
-          <ScalarProperty Name="Addr" ColumnName="Addr" />
+          <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderItems">
+      <EntityTypeMapping TypeName="BookStoreDBModel.OrderItem">
+        <MappingFragment StoreEntitySet="OrderItem">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="BookId" ColumnName="BookId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="BookStoreDbModel.User">
-        <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="UsrId" ColumnName="UsrId" />
-          <ScalarProperty Name="UName" ColumnName="UName" />
-          <ScalarProperty Name="UPassword" ColumnName="UPassword" />
-          <ScalarProperty Name="UStatus" ColumnName="UStatus" />
-          <ScalarProperty Name="UCreatedAt" ColumnName="UCreatedAt" />
-          <ScalarProperty Name="ULastLoginAt" ColumnName="ULastLoginAt" />
+      <EntityTypeMapping TypeName="BookStoreDBModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="LastLoginAt" ColumnName="LastLoginAt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="WishList" TypeName="BookStoreDbModel.WishList" StoreEntitySet="WishList">
-      <EndProperty Name="Books">
-        <ScalarProperty Name="BookId" ColumnName="BookId" />
+    <AssociationSetMapping Name="WishList" TypeName="BookStoreDBModel.WishList" StoreEntitySet="WishList">
+      <EndProperty Name="Book">
+        <ScalarProperty Name="Id" ColumnName="Bookid" />
       </EndProperty>
-      <EndProperty Name="Users">
-        <ScalarProperty Name="UsrId" ColumnName="UsrId" />
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

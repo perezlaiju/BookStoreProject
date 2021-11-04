@@ -22,11 +22,11 @@ namespace BookStoreApi.Models
     
         public int Id { get; set; }
         public string Code { get; set; }
-        public Nullable<double> DiscountPercentage { get; set; }
-        public Nullable<double> DiscountValue { get; set; }
-        public Nullable<double> MinOrderValue { get; set; }
-        public Nullable<bool> IsClubbable { get; set; }
-        public bool STATUS { get; set; }
+        public double DiscountPercentage { get; set; }
+        public double DiscountValue { get; set; }
+        public double MinOrderValue { get; set; }
+        public bool IsClubbable { get; set; }
+        public string Status { get; set; }
         public Nullable<System.DateTimeOffset> CreatedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -175,11 +175,11 @@ INSERT INTO Category VALUES('Horror','Category desc',null,1,null,GETDATE());
 SELECT * FROM Category;
 
 --INSERT INTO Book VALUES(CategoryID,titkle,'Author','ISBN',Year,PRice,Status,osition,GETDATE() );
-INSERT INTO Book VALUES(1,'Artemis Fowl','Eon','asd123',2007,400,1,null,GETDATE() );
-INSERT INTO Book VALUES(1,'Artemis Fowl 2','Eon','asd123',2007,400,1,null,GETDATE() );
-INSERT INTO Book VALUES(2,'Shoe Dog','Eon','asd123',2007,400,1,null,GETDATE() );
-INSERT INTO Book VALUES(3,'Goosebumps','Eon','asd123',2007,400,1,null,GETDATE() );
-INSERT INTO Book VALUES(1,'Harry Potter','Eon','asd123',2007,400,1,null,GETDATE() );
+INSERT INTO Book VALUES(1,'Artemis Fowl','Eon','asd123',null,2007,400,'V',null,GETDATE() );
+INSERT INTO Book VALUES(1,'Artemis Fowl 2','Eon','asd123',null,2007,400,'V',null,GETDATE() );
+INSERT INTO Book VALUES(2,'Shoe Dog','Eon','asd123',null,2007,400,'V',null,GETDATE() );
+INSERT INTO Book VALUES(3,'Goosebumps','Eon','asd123',null,2007,400,'V',null,GETDATE() );
+INSERT INTO Book VALUES(1,'Harry Potter','Eon','asd123',null,2007,400,'V',null,GETDATE() );
 SELECT * FROM Book;
 
 --INSERT INTO [User] VALUES ('username','userpassword','Role',status,getdate(),lastlogin)
@@ -188,11 +188,12 @@ INSERT INTO [User] VALUES ('user','user','C',1,getdate(),null)
 SELECT * FROM [User];
 
 --INSERT INTO Coupon VALUES ('code',percentage,value,minOrder,ClubbableBit,StatusBit,getdate());
-INSERT INTO Coupon VALUES ('FLAT50',0.5,NULL,0,1,1,getdate());
+INSERT INTO Coupon VALUES ('FLAT50',0.5,50,50,0,'V',getdate());
 SELECT * FROM Coupon
 
 --INSERT INTO WishList VALUES(UID,BID);
 INSERT INTO WishList VALUES(1,1);
+SELECT * FROM WishList;
 
 --INSERT INTO [Order] VALUES (UID,'Addr',StatusChar,getdate());
 INSERT INTO [Order] VALUES (2,'Order Addr','P',getdate());
@@ -204,5 +205,5 @@ INSERT INTO OrderItem VALUES (1,3,3,getdate());
 SELECT * FROM OrderItem;
 
 --INSERT INTO OrderCoupon VALUES(OID,COUPONID,StatusChar,getdate());
-INSERT INTO OrderCoupon VALUES(1,3,getdate());
+INSERT INTO OrderCoupon VALUES(1,1,getdate());
 SELECT * FROM OrderCoupon;

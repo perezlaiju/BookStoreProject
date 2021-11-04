@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a1f74c881414e5a8f551bc545cfb659" Name="Diagram1">
+        <EntityTypeShape EntityType="BookStoreDBModel.Book" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreDBModel.Category" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreDBModel.Coupon" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreDBModel.Order" Width="1.5" PointX="7.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreDBModel.OrderCoupon" Width="1.5" PointX="9.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreDBModel.OrderItem" Width="1.5" PointX="9.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookStoreDBModel.User" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="BookStoreDBModel.FK__Book__CategoryId__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreDBModel.FK__OrderItem__BookI__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreDBModel.FK__OrderCoup__Coupo__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreDBModel.FK__Order__UserId__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreDBModel.FK__OrderCoup__Order__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreDBModel.FK__OrderItem__Order__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="BookStoreDBModel.WishList" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

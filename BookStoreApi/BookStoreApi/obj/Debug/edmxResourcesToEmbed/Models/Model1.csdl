@@ -1,185 +1,216 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="BookStoreDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Admin">
-    <Key>
-      <PropertyRef Name="AdminId" />
-    </Key>
-    <Property Name="AdminId" Type="Int32" Nullable="false" />
-    <Property Name="AName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="APassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-  </EntityType>
+<Schema Namespace="BookStoreDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Book">
     <Key>
-      <PropertyRef Name="BookId" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="BookId" Type="Int32" Nullable="false" />
-    <Property Name="CategoryId" Type="Int32" />
-    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="BYear" Type="Int32" />
-    <Property Name="Price" Type="Double" />
-    <Property Name="BDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="BPosition" Type="Int32" />
-    <Property Name="BStatus" Type="Boolean" />
-    <Property Name="BImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Category" Relationship="Self.FK__Books__CategoryI__5070F446" FromRole="Books" ToRole="Category" />
-    <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__BookI__5AEE82B9" FromRole="Books" ToRole="OrderItems" />
-    <NavigationProperty Name="Users" Relationship="Self.WishList" FromRole="Books" ToRole="Users" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ISBN" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+    <Property Name="ImageUrl" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+    <Property Name="Year" Type="Int16" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="4" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Position" Type="Int32" />
+    <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Book__CategoryId__5BE2A6F2" FromRole="Book" ToRole="Category" />
+    <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__BookI__6EF57B66" FromRole="Book" ToRole="OrderItem" />
+    <NavigationProperty Name="Users" Relationship="Self.WishList" FromRole="Book" ToRole="User" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
-      <PropertyRef Name="CategoryId" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="CategoryId" Type="Int32" Nullable="false" />
-    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="CDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="CImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="CStatus" Type="Boolean" />
-    <Property Name="CPosition" Type="Int32" />
-    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Books" Relationship="Self.FK__Books__CategoryI__5070F446" FromRole="Category" ToRole="Books" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Position" Type="Int32" />
+    <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Book__CategoryId__5BE2A6F2" FromRole="Category" ToRole="Book" />
   </EntityType>
   <EntityType Name="Coupon">
     <Key>
-      <PropertyRef Name="CouponId" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="CouponId" Type="Int32" Nullable="false" />
-    <Property Name="CouponName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="CouponDiscount" Type="Double" />
-    <NavigationProperty Name="Orders" Relationship="BookStoreDbModel.FK__Orders__CouponId__6EF57B66" FromRole="Coupon" ToRole="Order" />
-  </EntityType>
-  <EntityType Name="OrderItem">
-    <Key>
-      <PropertyRef Name="OrderId" />
-      <PropertyRef Name="BookId" />
-    </Key>
-    <Property Name="OrderId" Type="Int32" Nullable="false" />
-    <Property Name="BookId" Type="Int32" Nullable="false" />
-    <Property Name="Qty" Type="Int32" />
-    <NavigationProperty Name="Book" Relationship="Self.FK__OrderItem__BookI__5AEE82B9" FromRole="OrderItems" ToRole="Books" />
-    <NavigationProperty Name="Order" Relationship="Self.FK__OrderItem__Order__59FA5E80" FromRole="OrderItems" ToRole="Orders" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DiscountPercentage" Type="Double" Nullable="false" />
+    <Property Name="DiscountValue" Type="Double" Nullable="false" />
+    <Property Name="MinOrderValue" Type="Double" Nullable="false" />
+    <Property Name="IsClubbable" Type="Boolean" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
+    <NavigationProperty Name="OrderCoupons" Relationship="Self.FK__OrderCoup__Coupo__75A278F5" FromRole="Coupon" ToRole="OrderCoupon" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
-      <PropertyRef Name="OrderId" />
+      <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="DeliveryAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
+    <Property Name="TotalValue" Type="Decimal" Precision="10" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="TotalDiscount" Type="Decimal" Precision="10" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="NetPrice" Type="Decimal" Precision="10" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Order__UserId__68487DD7" FromRole="Order" ToRole="User" />
+    <NavigationProperty Name="OrderCoupons" Relationship="Self.FK__OrderCoup__Order__74AE54BC" FromRole="Order" ToRole="OrderCoupon" />
+    <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__6E01572D" FromRole="Order" ToRole="OrderItem" />
+  </EntityType>
+  <EntityType Name="OrderCoupon">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="OrderId" Type="Int32" Nullable="false" />
-    <Property Name="UsrId" Type="Int32" />
-    <Property Name="Addr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__59FA5E80" FromRole="Orders" ToRole="OrderItems" />
-    <NavigationProperty Name="User" Relationship="Self.FK__Orders__UsrId__571DF1D5" FromRole="Orders" ToRole="Users" />
-    <Property Name="CouponId" Type="Int32" />
-    <NavigationProperty Name="Coupon" Relationship="BookStoreDbModel.FK__Orders__CouponId__6EF57B66" FromRole="Order" ToRole="Coupon" />
+    <Property Name="CouponId" Type="Int32" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="Coupon" Relationship="Self.FK__OrderCoup__Coupo__75A278F5" FromRole="OrderCoupon" ToRole="Coupon" />
+    <NavigationProperty Name="Order" Relationship="Self.FK__OrderCoup__Order__74AE54BC" FromRole="OrderCoupon" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="BookId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int16" />
+    <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
+    <NavigationProperty Name="Book" Relationship="Self.FK__OrderItem__BookI__6EF57B66" FromRole="OrderItem" ToRole="Book" />
+    <NavigationProperty Name="Order" Relationship="Self.FK__OrderItem__Order__6E01572D" FromRole="OrderItem" ToRole="Order" />
   </EntityType>
   <EntityType Name="User">
     <Key>
-      <PropertyRef Name="UsrId" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="UsrId" Type="Int32" Nullable="false" />
-    <Property Name="UName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="UPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="UStatus" Type="Boolean" />
-    <Property Name="UCreatedAt" Type="DateTime" Precision="3" />
-    <Property Name="ULastLoginAt" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UsrId__571DF1D5" FromRole="Users" ToRole="Orders" />
-    <NavigationProperty Name="Books" Relationship="Self.WishList" FromRole="Users" ToRole="Books" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Role" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTimeOffset" Precision="7" />
+    <Property Name="LastLoginAt" Type="DateTimeOffset" Precision="7" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Order__UserId__68487DD7" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="Books" Relationship="Self.WishList" FromRole="User" ToRole="Book" />
   </EntityType>
-  <Association Name="FK__Books__CategoryI__5070F446">
-    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-    <End Role="Books" Type="Self.Book" Multiplicity="*" />
+  <Association Name="FK__Book__CategoryId__5BE2A6F2">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
         <PropertyRef Name="CategoryId" />
-      </Principal>
-      <Dependent Role="Books">
-        <PropertyRef Name="CategoryId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__OrderItem__BookI__5AEE82B9">
-    <End Role="Books" Type="Self.Book" Multiplicity="1" />
-    <End Role="OrderItems" Type="Self.OrderItem" Multiplicity="*" />
+  <Association Name="FK__OrderItem__BookI__6EF57B66">
+    <End Role="Book" Type="Self.Book" Multiplicity="1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Books">
-        <PropertyRef Name="BookId" />
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="OrderItems">
+      <Dependent Role="OrderItem">
         <PropertyRef Name="BookId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__OrderItem__Order__59FA5E80">
-    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
-    <End Role="OrderItems" Type="Self.OrderItem" Multiplicity="*" />
+  <Association Name="FK__OrderCoup__Coupo__75A278F5">
+    <End Role="Coupon" Type="Self.Coupon" Multiplicity="1" />
+    <End Role="OrderCoupon" Type="Self.OrderCoupon" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Orders">
-        <PropertyRef Name="OrderId" />
+      <Principal Role="Coupon">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="OrderItems">
+      <Dependent Role="OrderCoupon">
+        <PropertyRef Name="CouponId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Order__UserId__68487DD7">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderCoup__Order__74AE54BC">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderCoupon" Type="Self.OrderCoupon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderCoupon">
         <PropertyRef Name="OrderId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Orders__UsrId__571DF1D5">
-    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+  <Association Name="FK__OrderItem__Order__6E01572D">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="UsrId" />
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Orders">
-        <PropertyRef Name="UsrId" />
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OrderId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="WishList">
-    <End Role="Books" Type="Self.Book" Multiplicity="*" />
-    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="BookStoreDbEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Admins" EntityType="Self.Admin" />
+  <EntityContainer Name="BookStoreDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Books" EntityType="Self.Book" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
     <EntitySet Name="Coupons" EntityType="Self.Coupon" />
-    <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="OrderCoupons" EntityType="Self.OrderCoupon" />
+    <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
     <EntitySet Name="Users" EntityType="Self.User" />
-    <AssociationSet Name="FK__Books__CategoryI__5070F446" Association="Self.FK__Books__CategoryI__5070F446">
+    <AssociationSet Name="FK__Book__CategoryId__5BE2A6F2" Association="Self.FK__Book__CategoryId__5BE2A6F2">
       <End Role="Category" EntitySet="Categories" />
-      <End Role="Books" EntitySet="Books" />
+      <End Role="Book" EntitySet="Books" />
     </AssociationSet>
-    <AssociationSet Name="FK__OrderItem__BookI__5AEE82B9" Association="Self.FK__OrderItem__BookI__5AEE82B9">
-      <End Role="Books" EntitySet="Books" />
-      <End Role="OrderItems" EntitySet="OrderItems" />
+    <AssociationSet Name="FK__OrderItem__BookI__6EF57B66" Association="Self.FK__OrderItem__BookI__6EF57B66">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
     </AssociationSet>
-    <AssociationSet Name="FK__OrderItem__Order__59FA5E80" Association="Self.FK__OrderItem__Order__59FA5E80">
-      <End Role="Orders" EntitySet="Orders" />
-      <End Role="OrderItems" EntitySet="OrderItems" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Orders__UsrId__571DF1D5" Association="Self.FK__Orders__UsrId__571DF1D5">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="WishList" Association="Self.WishList">
-      <End Role="Books" EntitySet="Books" />
-      <End Role="Users" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Orders__CouponId__6EF57B66" Association="BookStoreDbModel.FK__Orders__CouponId__6EF57B66">
+    <AssociationSet Name="FK__OrderCoup__Coupo__75A278F5" Association="Self.FK__OrderCoup__Coupo__75A278F5">
       <End Role="Coupon" EntitySet="Coupons" />
+      <End Role="OrderCoupon" EntitySet="OrderCoupons" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Order__UserId__68487DD7" Association="Self.FK__Order__UserId__68487DD7">
+      <End Role="User" EntitySet="Users" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
+    <AssociationSet Name="FK__OrderCoup__Order__74AE54BC" Association="Self.FK__OrderCoup__Order__74AE54BC">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderCoupon" EntitySet="OrderCoupons" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderItem__Order__6E01572D" Association="Self.FK__OrderItem__Order__6E01572D">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="WishList" Association="Self.WishList">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
   </EntityContainer>
-  <Association Name="FK__Orders__CouponId__6EF57B66">
-    <End Type="BookStoreDbModel.Coupon" Role="Coupon" Multiplicity="0..1" />
-    <End Type="BookStoreDbModel.Order" Role="Order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Coupon">
-        <PropertyRef Name="CouponId" />
-      </Principal>
-      <Dependent Role="Order">
-        <PropertyRef Name="CouponId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

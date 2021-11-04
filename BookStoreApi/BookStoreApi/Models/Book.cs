@@ -18,6 +18,7 @@ namespace BookStoreApi.Models
         public Book()
         {
             this.OrderItems = new HashSet<OrderItem>();
+            this.Users = new HashSet<User>();
         }
     
         public int Id { get; set; }
@@ -25,14 +26,17 @@ namespace BookStoreApi.Models
         public string Title { get; set; }
         public string Author { get; set; }
         public string ISBN { get; set; }
+        public string ImageUrl { get; set; }
         public Nullable<short> Year { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public bool STATUS { get; set; }
+        public decimal Price { get; set; }
+        public string Status { get; set; }
         public Nullable<int> Position { get; set; }
         public Nullable<System.DateTimeOffset> CreatedAt { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

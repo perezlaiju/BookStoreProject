@@ -17,8 +17,8 @@ namespace BookStoreApi.Models
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int CouponId { get; set; }
-        public string STATUS { get; set; }
         public Nullable<System.DateTimeOffset> CreatedAt { get; set; }
+        public string Status { get; set; }
     
         public virtual Coupon Coupon { get; set; }
         public virtual Order Order { get; set; }
