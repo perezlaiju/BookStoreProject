@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Book } from '../book';
+import { TestServiceService } from '../test-service.service';
 
 
 @Component({
@@ -8,16 +10,16 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./books.component.scss']
 })
 export class BooksComponent implements OnInit {
+  public books:Book[] | undefined;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private bookService:TestServiceService) { }
 
   ngOnInit(): void {
-    this.http
-    .get('http://localhost:61163/odata/Books')
-    .subscribe(data => {
-      // Read the result field from the JSON response.
-      console.log(data);
+    
+    this.bookService.getAllBooks().subscribe((response: any) =>{
+      this.books = response.value;
     })
+
   }
 
 }

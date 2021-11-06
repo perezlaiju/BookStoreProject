@@ -2,3 +2,4 @@ Web.config
 .vs/
 bin/
 obj/
+/BookStoreApi/.vs
