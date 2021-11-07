@@ -35,6 +35,7 @@ namespace BookStoreApi.Controllers
 
         // GET: odata/Books
         [EnableQuery]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IQueryable<Book> GetBooks()
         {
             return db.Books;
