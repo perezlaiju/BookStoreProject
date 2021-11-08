@@ -11,8 +11,8 @@ import { Book } from 'src/app/interfaces/book';
   styleUrls: ['./updt-books.component.sass']
 })
 export class UpdtBooksComponent implements OnInit {
-  bookData: any;
-  duplicateBookData:any;
+  bookData : any;
+  duplicateBookData : any;
   isUpdated = false;
   
   constructor(private BookService: BookserviceService, private route: ActivatedRoute) { }

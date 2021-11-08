@@ -36,10 +36,9 @@ export class BookserviceService {
     delete updateableBookData["odata.metadata"]
     console.log(updateableBookData.Id);
     console.log(updateableBookData);
-    this.book = updateableBookData;
-    console.log(this.book)
+
     
-    return this.http.put(this.baseUrl +'Books('+updateableBookData.Id+')', this.book)
+    return this.http.put(this.baseUrl +'Books('+updateableBookData.Id+')', updateableBookData)
       .toPromise()
       .then( (res: any) => {
         console.log(res);
