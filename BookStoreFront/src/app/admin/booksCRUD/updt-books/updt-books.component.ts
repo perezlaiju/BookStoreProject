@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BookserviceService } from 'src/app/services/bookservice.service';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Book } from 'src/app/interfaces/book';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class UpdtBooksComponent implements OnInit {
   duplicateBookData : any;
   isUpdated = false;
   
-  constructor(private BookService: BookserviceService, private route: ActivatedRoute) { }
+  constructor(private BookService: BookserviceService, private route: ActivatedRoute,private _location: Location) { }
 
   ngOnInit(): void {
     let bookId = this.route.snapshot.paramMap.get('id');
@@ -26,9 +27,11 @@ export class UpdtBooksComponent implements OnInit {
         //console.log(res.value)
         this.bookData = res;
         this.duplicateBookData = { ...this.bookData };
-      });
+      });    
+  }
 
-      
+  handleClose(){
+    this._location.back();
   }
   
   async handleUpdate(){
@@ -39,6 +42,8 @@ export class UpdtBooksComponent implements OnInit {
 
     if(status && status.id){
       this.isUpdated = true;
+      
     }
+    this._location.back();
   }
 }

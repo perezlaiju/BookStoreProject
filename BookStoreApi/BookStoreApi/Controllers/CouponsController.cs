@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Routing;
@@ -25,6 +26,7 @@ namespace BookStoreApi.Controllers
     builder.EntitySet<OrderCoupon>("OrderCoupons"); 
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CouponsController : ODataController
     {
         private BookStoreDBEntities db = new BookStoreDBEntities();

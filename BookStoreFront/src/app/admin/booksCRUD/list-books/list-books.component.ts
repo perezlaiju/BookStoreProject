@@ -29,6 +29,4 @@ export class ListBooksComponent implements OnInit {
     })
   }
 
-
-
 }

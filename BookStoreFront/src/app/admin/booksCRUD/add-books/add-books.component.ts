@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { BookserviceService } from 'src/app/services/bookservice.service';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -9,6 +10,7 @@ import { BookserviceService } from 'src/app/services/bookservice.service';
   styleUrls: ['./add-books.component.sass']
 })
 export class AddBooksComponent implements OnInit {
+  
   addBookForm :FormGroup = new FormGroup({
     Title : new FormControl('',Validators.required),
     CategoryId: new FormControl('', Validators.required),
@@ -20,8 +22,10 @@ export class AddBooksComponent implements OnInit {
     Status: new FormControl(''),
     Position: new FormControl('', Validators.required),
   });
+
   isSaved = false;
-  constructor(private BookService:BookserviceService) { }
+
+  constructor(private BookService:BookserviceService,private _location: Location) { }
 
   ngOnInit(): void {
 
@@ -36,6 +40,7 @@ export class AddBooksComponent implements OnInit {
       if(res && res.id){
         this.isSaved = true;
       }
+      this._location.back();
     });
   }
 
