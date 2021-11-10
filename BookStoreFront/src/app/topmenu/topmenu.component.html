@@ -99,10 +99,18 @@
                 <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
                     <ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
                         <li class=" scroll active"><a routerLink="home">Home</a></li>
-                        <li class="scroll"><a routerLink="bookcrud">BookCRUD</a></li>
-                        <li class="scroll"><a routerLink="categoriescrud">Categories</a></li>
-                        <li class="scroll"><a routerLink="couponcrud">Coupons</a></li>
-                        <li class="scroll"><a href="#newsletter">contact</a></li>
+                        <li class="scroll"><a routerLink="login">Login</a></li>
+                        <li class="scroll"><a routerLink="register">Registration</a></li>
+                        <li class="dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Admin
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="scroll"><a routerLink="bookcrud">Books</a></li>
+                                <li class="scroll"><a routerLink="categoriescrud">Categories</a></li>
+                                <li class="scroll"><a routerLink="couponcrud">Coupons</a></li>
+                            </div>
+                          </li>
                     </ul>
                     <!--/.nav -->
                 </div><!-- /.navbar-collapse -->

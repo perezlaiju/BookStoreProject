@@ -17,6 +17,8 @@ import { UpdtCategoriesComponent } from './admin/categoriesCRUD/updt-categories/
 import { UpdtCouponComponent } from './admin/couponCRUD/updt-coupon/updt-coupon.component';
 import { AddCouponComponent } from './admin/couponCRUD/add-coupon/add-coupon.component';
 import { ListCouponComponent } from './admin/couponCRUD/list-coupon/list-coupon.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { ListCouponComponent } from './admin/couponCRUD/list-coupon/list-coupon.
     UpdtCouponComponent,
     AddCouponComponent,
     ListCouponComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

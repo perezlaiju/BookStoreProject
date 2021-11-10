@@ -11,9 +11,13 @@ import { AddBooksComponent } from './admin/booksCRUD/add-books/add-books.compone
 import { ListBooksComponent } from './admin/booksCRUD/list-books/list-books.component';
 import { UpdtBooksComponent } from './admin/booksCRUD/updt-books/updt-books.component';
 import { TopmenuComponent } from './topmenu/topmenu.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {path:'home' ,component: BookpageComponent},
+  {path:'login' ,component: LoginComponent},
+  {path:'register' ,component: RegisterComponent},
   {path:'bookcrud' ,component: ListBooksComponent},
   {path:'bookcrud/addBook' , component:AddBooksComponent},
   {path:'bookcrud/updateBook/:id' , component:UpdtBooksComponent},
