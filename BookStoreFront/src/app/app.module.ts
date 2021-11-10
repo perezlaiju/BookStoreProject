@@ -19,6 +19,7 @@ import { AddCouponComponent } from './admin/couponCRUD/add-coupon/add-coupon.com
 import { ListCouponComponent } from './admin/couponCRUD/list-coupon/list-coupon.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RegisterComponent } from './register/register.component';
     ListCouponComponent,
     LoginComponent,
     RegisterComponent,
+    DetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Book } from '../interfaces/book';
 import { Category } from '../interfaces/category';
+import { AuthserviceService } from './authservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookserviceService {
-  private baseUrl = 'http://localhost:61163/odata/';
+  private baseUrl = 'https://localhost:44347/odata/';
 
   public books:Book[] | undefined;
   public book:Book | undefined;
@@ -16,8 +17,8 @@ export class BookserviceService {
   public categories:Category[] | undefined;
   public category:Category | undefined;
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient,private auth:AuthserviceService) { }
+  headers = this.auth.options;
   getAllBooks(): any{
     return this.getAll('Books');
   }
@@ -25,7 +26,7 @@ export class BookserviceService {
     return this.getAll('Categories');
   }
   getAll(type:string){
-    return this.http.get(this.baseUrl+type);
+    return this.http.get(this.baseUrl+type,this.headers);
   }
 
   getBook(id: string | null ):any{
@@ -35,7 +36,7 @@ export class BookserviceService {
     return this.getById(id,'Categories');
   }
   getById(id: string | null ,type:string):any{
-    return this.http.get(this.baseUrl+type+'('+id+')');
+    return this.http.get(this.baseUrl+type+'('+id+')',this.headers);
   }
 
   delBook(id: { toString: () => string; }):any{
@@ -45,7 +46,7 @@ export class BookserviceService {
     return this.delById(id,'Categories');
   }
   delById(id: { toString: () => string; },type:string){
-    return this.http.delete(this.baseUrl+type+'('+id+')');
+    return this.http.delete(this.baseUrl+type+'('+id+')',this.headers);
   }
 
   addBook(newBook:any):any{
@@ -56,7 +57,7 @@ return this.addData(newBook,'Books')
   }
 
   addData(newData:any,type:string):any{
-    return this.http.post(this.baseUrl+type, newData)
+    return this.http.post(this.baseUrl+type, newData,this.headers)
     .pipe( map( (res: any) => {
       return res;
     }));
@@ -76,7 +77,7 @@ updateData( updateableData: any,type:string): any {
   console.log(updateableData);
 
   
-  return this.http.put(this.baseUrl +type+'('+updateableData.Id+')', updateableData)
+  return this.http.put(this.baseUrl +type+'('+updateableData.Id+')', updateableData,this.headers)
     .toPromise()
     .then( (res: any) => {
       console.log(res);

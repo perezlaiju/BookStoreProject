@@ -7,9 +7,34 @@
 
         <div class="row">
             <aside class="col-md-3">
-
+                Implement Filters here
                 <div class="card">
-                   List Categories here.
+                   
+                   <article class="filter-group">
+                    <header class="card-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                            <i class="icon-control fa fa-chevron-down"></i>
+                            <h6 class="title">Categories</h6>
+                        </a>
+                    </header>
+                    <div class="filter-content collapse show" id="collapse_1" style="">
+                        <div class="card-body">
+                            <form class="pb-3">
+                            <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Search">
+                              <div class="input-group-append">
+                                <button class="btn btn-light" type="button"><i class="fa fa-search"></i></button>
+                              </div>
+                            </div>
+                            </form>
+                            
+                            <ul class="list-menu" *ngFor="let item of categoriesList">
+                                <li><a href="#">{{item.Name}}</a></li>
+                            </ul>
+            
+                        </div> <!-- card-body.// -->
+                    </div>
+                </article> 
                 </div> <!-- card.// -->
 
             </aside> <!-- col.// -->
@@ -41,11 +66,11 @@
                             <div class="img-wrap">
                                 <!-- <span class="badge badge-danger"> NEW </span> -->
                                 <img src="assets/images/items/1.jpg">
-                                <a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>
+                                <a class="btn-overlay" routerLink="details"><i class="fa fa-search-plus"></i> Quick view</a>
                             </div> <!-- img-wrap.// -->
                             <figcaption class="info-wrap">
                                 <div class="fix-height">
-                                    <a href="#" class="title">{{item.Title}}</a>
+                                    <a routerLink="details" class="title">{{item.Title}}</a>
                                     <div class="price-wrap mt-2">
                                         <span class="price">${{item.Price| number:'1.2-2'}}</span>
                                         <!-- <del class="price-old">$1980</del> -->

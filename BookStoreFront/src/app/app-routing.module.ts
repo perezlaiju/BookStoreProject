@@ -13,11 +13,13 @@ import { UpdtBooksComponent } from './admin/booksCRUD/updt-books/updt-books.comp
 import { TopmenuComponent } from './topmenu/topmenu.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { DetailsComponent } from './details/details.component';
 
 const routes: Routes = [
   {path:'home' ,component: BookpageComponent},
   {path:'login' ,component: LoginComponent},
   {path:'register' ,component: RegisterComponent},
+  {path:'details' ,component: DetailsComponent},
   {path:'bookcrud' ,component: ListBooksComponent},
   {path:'bookcrud/addBook' , component:AddBooksComponent},
   {path:'bookcrud/updateBook/:id' , component:UpdtBooksComponent},
