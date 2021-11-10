@@ -19,6 +19,7 @@ export class BookserviceService {
 
   constructor(private http: HttpClient,private auth:AuthserviceService) { }
   headers = this.auth.options;
+
   getAllBooks(): any{
     return this.getAll('Books');
   }
@@ -57,7 +58,7 @@ return this.addData(newBook,'Books')
   }
 
   addData(newData:any,type:string):any{
-    return this.http.post(this.baseUrl+type, newData,this.headers)
+    return this.http.post(this.baseUrl+type, this.auth.getparams(newData),this.headers)
     .pipe( map( (res: any) => {
       return res;
     }));
@@ -77,7 +78,7 @@ updateData( updateableData: any,type:string): any {
   console.log(updateableData);
 
   
-  return this.http.put(this.baseUrl +type+'('+updateableData.Id+')', updateableData,this.headers)
+  return this.http.put(this.baseUrl +type+'('+updateableData.Id+')', this.auth.getparams(updateableData),this.headers)
     .toPromise()
     .then( (res: any) => {
       console.log(res);

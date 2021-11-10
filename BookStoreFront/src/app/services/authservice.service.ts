@@ -16,13 +16,24 @@ export class AuthserviceService {
   };
   constructor(private http: HttpClient) { }
 
+  getparams(data:any):string{
+    //let urlSearchParams = new URLSearchParams();
+    // urlSearchParams.set('grant_type', 'password');
+    // urlSearchParams.set('username', data.username);
+    // urlSearchParams.set('password', data.password);
+    // let body = urlSearchParams.toString();
+
+    let urlSearchParams = new URLSearchParams(Object.entries(data)).toString();
+    let body = urlSearchParams.toString();
+
+    return body;
+    
+
+  }
+
   login(data: any): any {
     console.log(data);
-    let urlSearchParams = new URLSearchParams();
-    urlSearchParams.set('grant_type', 'password');
-    urlSearchParams.set('username', data.username);
-    urlSearchParams.set('password', data.password);
-    let body = urlSearchParams.toString();
+    let body = this.getparams(data);
     console.log(body);
     return this.http.post(this.baseurl + 'Token', body, this.options).subscribe((res: any) => {
       //console.log(res);
