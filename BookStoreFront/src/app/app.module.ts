@@ -20,6 +20,7 @@ import { ListCouponComponent } from './admin/couponCRUD/list-coupon/list-coupon.
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DetailsComponent } from './details/details.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DetailsComponent } from './details/details.component';
     LoginComponent,
     RegisterComponent,
     DetailsComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

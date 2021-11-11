@@ -28,4 +28,8 @@ export class BookpageComponent implements OnInit {
     })
   }
 
+  addCart(id:number){
+    console.log(id)
+  }
+
 }
