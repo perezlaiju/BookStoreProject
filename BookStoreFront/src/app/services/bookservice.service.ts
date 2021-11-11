@@ -78,7 +78,7 @@ updateData( updateableData: any,type:string): any {
   console.log(updateableData);
 
   
-  return this.http.put(this.baseUrl +type+'('+updateableData.Id+')', this.auth.getparams(updateableData),this.headers)
+  return this.http.put(this.baseUrl +type+'('+updateableData.Id+')', updateableData,this.auth.tokenheader)
     .toPromise()
     .then( (res: any) => {
       console.log(res);

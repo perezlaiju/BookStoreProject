@@ -14,6 +14,9 @@ export class AuthserviceService {
   public options = {
     headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer ' + this.gettoken())
   };
+  public tokenheader = {
+    headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.gettoken())
+  };
   constructor(private http: HttpClient) { }
 
   getparams(data:any):string{
