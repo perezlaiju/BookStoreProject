@@ -13,7 +13,7 @@ export class AddBooksComponent implements OnInit {
   
   addBookForm :FormGroup = new FormGroup({
     Title : new FormControl('',Validators.required),
-    CategoryId: new FormControl('', Validators.required),
+    Category_Id: new FormControl('', Validators.required),
     ISBN: new FormControl('', Validators.required),
     Author: new FormControl('', Validators.required),
     Year: new FormControl('', Validators.required),
