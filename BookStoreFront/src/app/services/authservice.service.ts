@@ -31,6 +31,10 @@ export class AuthserviceService {
 
   }
 
+  gettoken():any{
+    return localStorage.getItem('token');
+  }
+
   login(data: any): any {
     console.log(data);
     let body = this.getparams(data);
@@ -43,7 +47,9 @@ export class AuthserviceService {
       return res;
     });
   }
-  gettoken():any{
-    return localStorage.getItem('token');
+
+  register(data:any):any{
+    console.log(data);
+    return this.http.post(this.baseurl+'api/Account/Register',this.getparams(data),this.options);
   }
 }
