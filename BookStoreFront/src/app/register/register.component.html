@@ -4,22 +4,24 @@
         <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
           <article class="card-body">
             <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
-            <form>
+            <form [formGroup]="registerDetailsForm" (ngSubmit)="handleRegister()">
+              <!--
                     <div class="form-row">
                         <div class="col form-group">
                             <label>First name</label>
                               <input type="text" class="form-control" placeholder="">
-                        </div> <!-- form-group end.// -->
+                        </div> 
                         <div class="col form-group">
                             <label>Last name</label>
                               <input type="text" class="form-control" placeholder="">
-                        </div> <!-- form-group end.// -->
-                    </div> <!-- form-row end.// -->
+                        </div> 
+                    </div> -->
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" class="form-control" placeholder="">
+                        <input type="email" class="form-control" placeholder="" formControlName="email"
+                        [ngClass]="{ 'is-invalid': registerDetailsForm.get('email')?.touched && registerDetailsForm.get('email')?.invalid }">
                         <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div> <!-- form-group end.// -->
+                    </div> <!-- 
                     <div class="form-group">
                         <label class="custom-control custom-radio custom-control-inline">
                           <input class="custom-control-input" checked="" type="radio" name="gender" value="option1">
@@ -29,12 +31,12 @@
                           <input class="custom-control-input" type="radio" name="gender" value="option2">
                           <span class="custom-control-label"> Female </span>
                         </label>
-                    </div> <!-- form-group end.// -->
+                    </div> 
                     <div class="form-row">
                         <div class="form-group col-md-6">
                           <label>City</label>
                           <input type="text" class="form-control">
-                        </div> <!-- form-group end.// -->
+                        </div> 
                         <div class="form-group col-md-6">
                           <label>Country</label>
                           <select id="inputState" class="form-control">
@@ -45,16 +47,18 @@
                               <option>India</option>
                               <option>Afganistan</option>
                           </select>
-                        </div> <!-- form-group end.// -->
-                    </div> <!-- form-row.// -->
+                        </div> 
+                    </div>  -->
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label>Create password</label>
-                            <input class="form-control" type="password">
+                            <input class="form-control" type="password" formControlName="password"
+                            [ngClass]="{ 'is-invalid': registerDetailsForm.get('password')?.touched && registerDetailsForm.get('password')?.invalid }">
                         </div> <!-- form-group end.// --> 
                         <div class="form-group col-md-6">
                             <label>Repeat password</label>
-                            <input class="form-control" type="password">
+                            <input class="form-control" type="password" formControlName="confirmPassword"
+                            [ngClass]="{ 'is-invalid': registerDetailsForm.get('confirmPassword')?.touched && registerDetailsForm.get('confirmPassword')?.invalid }">
                         </div> <!-- form-group end.// -->  
                     </div>
                     <div class="form-group">
