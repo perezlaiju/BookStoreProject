@@ -92,4 +92,11 @@ updateData( updateableData: any,type:string): any {
       console.log('It is over!');
     });
 }
+
+addToCart(id:number):any{
+  return this.http.post(this.baseUrl+'CartItems',{'Book_Id':id,'Quantity':1},this.auth.tokenheader);
+}
+getCart():any{
+  return this.http.get(this.baseUrl+'Carts');
+}
 }

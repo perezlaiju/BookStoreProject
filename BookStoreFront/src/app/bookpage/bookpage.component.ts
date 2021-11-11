@@ -30,6 +30,7 @@ export class BookpageComponent implements OnInit {
 
   addCart(id:number){
     console.log(id)
+    this.BookService.addToCart(id).subscribe((res:any)=>console.log(res));
   }
 
 }
