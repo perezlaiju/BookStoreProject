@@ -50,6 +50,6 @@ export class AuthserviceService {
 
   register(data:any):any{
     console.log(data);
-    return this.http.post(this.baseurl+'api/Account/Register',this.getparams(data),this.options).subscribe(res => console.log(res));
+    return this.http.post(this.baseurl+'api/Account/Register',this.getparams(data),this.options);
   }
 }
