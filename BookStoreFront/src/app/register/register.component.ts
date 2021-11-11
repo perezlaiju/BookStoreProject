@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   }
 
   handleRegister():void{
-    this.auth.register(this.registerDetailsForm.value);
+    this.auth.register(this.registerDetailsForm.value).subscribe((res:any)=>console.log(res));
   }
 
 }
